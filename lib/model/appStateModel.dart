@@ -2,9 +2,6 @@ import 'package:shopping_app/model/productModel.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:shopping_app/repository/productsRepository.dart';
 
-double _salesTaxRate = 0.06;
-double _shippingCostPerItem = 7;
-
 class AppStateModel extends foundation.ChangeNotifier {
   // All the available ProductModels.
   List<ProductModel> _availableProductModels = [];
@@ -38,19 +35,6 @@ class AppStateModel extends foundation.ChangeNotifier {
     }).fold(0, (accumulator, extendedPrice) {
       return accumulator + extendedPrice;
     });
-  }
-
-  // Total shipping cost for the items in the cart.
-  double get shippingCost {
-    return _shippingCostPerItem *
-        _ProductModelsInCart.values.fold(0.0, (accumulator, itemCount) {
-          return accumulator + itemCount;
-        });
-  }
-
-  // Sales tax for the items in the cart
-  double get tax {
-    return subtotalCost * _salesTaxRate;
   }
 
   // Total cost to order everything in the cart.
